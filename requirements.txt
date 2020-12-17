@@ -58,3 +58,4 @@ wincertstore==0.2
 wrapt==1.12.1
 xmlschema==1.2.3
 zeep==3.4.0
+whitenoise
