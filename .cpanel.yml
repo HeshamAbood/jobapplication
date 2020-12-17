@@ -1,0 +1,11 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/tj8pgp1ukhpw/jobsApp/
+    - /bin/cp  manage.py $DEPLOYPATH
+    - /bin/cp -R application $DEPLOYPATH
+    - /bin/cp -R media $DEPLOYPATH
+    - /bin/cp -R static $DEPLOYPATH
+    - /bin/cp -R templates $DEPLOYPATH
+    - /bin/cp db.sqlite3 $DEPLOYPATH
+    - /bin/cp manage.py $DEPLOYPATH
