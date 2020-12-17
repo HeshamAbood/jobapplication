@@ -1,0 +1,66 @@
+{% extends "application/base.html" %}
+
+
+{% block body %}
+
+<!-- MultiStep Form -->
+<div class="row">
+    <div class="col-md-12 ">
+        <form id="msform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">Personal Details</li>
+                <li>Job Info</li>
+                <li>Qualifications</li>
+                <li>Lang</li>
+                <li>Computer & internet</li>
+                <li>Training_courses</li>
+                <li>Driving License</li>
+                <li>Skills</li>
+                <li>Experience</li>
+                <li>Achievements</li>
+                <li>Other</li>
+
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                {% include "application/step1.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step2.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step3.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step4.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step5.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step6.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step7.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step8.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step9.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step10.html" %}
+            </fieldset>
+            <fieldset>
+                {% include "application/step11.html" %}
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+
+
+{% endblock body %}

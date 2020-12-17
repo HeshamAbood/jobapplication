@@ -1,0 +1,28 @@
+
+{% extends "admin/base.html" %}
+{% block content %}
+<style>
+.label {
+    display: block;
+    padding: 4px 10px 0 0;
+    float: left;
+    width: 160px;
+    word-wrap: break-word;
+    line-height: 1;
+}</style>
+  <h2>Job Application</h2>
+  <p>Please fill the form below to register the Job Application</p>
+  <form method="POST" >
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="fieldWrapper" style="display: block; border-bottom: 1px solid; font-size: 13px ;padding: 10px;    border-bottom-width: 1px;border-bottom-style: solid;    border-bottom-color: rgb(238, 238, 238);">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help" style="    display: block;padding: 4px 10px 0 0;width: 160px">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+  {% endfor %}
+    <input type="submit" value="Save">
+  </form>
+{% endblock content %}

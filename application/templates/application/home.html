@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          name="viewport">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'application/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<div class="colM" id="content">
+
+    <h1>Add job application</h1>
+    <div id="content-main">
+
+
+        <form action="" enctype="multipart/form-data" id="jobapplication_form" method="post" novalidate=""><input
+                name="csrfmiddlewaretoken" type="hidden"
+                value="TMSuzCyGevDfMg9pSzxycDRZfjfrzrLkfE0ERpexEycfG7kJcMndhgcbyU6qlKfz">
+            <div>
+
+
+                <fieldset class="module aligned ">
+
+
+                    <div class="form-row field-first_name">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_first_name">First name:</label>
+
+                            <input class="vTextField" id="id_first_name" maxlength="200" name="first_name" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-father_name">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_father_name">Father name:</label>
+
+                            <input class="vTextField" id="id_father_name" maxlength="200" name="father_name" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-grandfather_name">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_grandfather_name">Grandfather name:</label>
+
+                            <input class="vTextField" id="id_grandfather_name" maxlength="200" name="grandfather_name" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-surname">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_surname">Surname:</label>
+
+                            <input class="vTextField" id="id_surname" maxlength="200" name="surname" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-birth_date">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_birth_date">Birth date:</label>
+
+                            <input class="vDateField" id="id_birth_date" name="birth_date" required="" size="10"
+                                   type="text"><span class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;<a
+                                href="#" id="calendarlink0"><span class="date-icon"
+                                                                  title="Choose a Date"></span></a></span>
+
+
+                            <br><span class="timezonewarning">Note: You are 3 hours ahead of server time.</span></div>
+
+                    </div>
+
+                    <div class="form-row field-nationality">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_nationality">Nationality:</label>
+
+                            <select id="id_nationality" name="nationality" required="">
+                                <option selected="" value="">---------</option>
+
+                                <option value="Y">Yemeni</option>
+
+                                <option value="O">Other</option>
+
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-blood_type">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_blood_type">Blood type:</label>
+
+                            <select id="id_blood_type" name="blood_type" required="">
+                                <option selected="" value="">---------</option>
+
+                                <option value="1">A</option>
+
+                                <option value="2">B</option>
+
+                                <option value="3">AB</option>
+
+                                <option value="4">O</option>
+
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-father_birth_place">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_father_birth_place">Father birth place:</label>
+
+                            <select id="id_father_birth_place" name="father_birth_place" required="">
+                                <option selected="" value="">---------</option>
+
+                                <option value="Y">Yemeni</option>
+
+                                <option value="O">Other</option>
+
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-ID_type">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_ID_type">ID type:</label>
+
+                            <select id="id_ID_type" name="ID_type" required="">
+                                <option selected="" value="">---------</option>
+
+                                <option value="ID">ID</option>
+
+                                <option value="PS">Passport</option>
+
+                                <option value="oO">Other</option>
+
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-ID_issued_from">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_ID_issued_from">ID issued from:</label>
+
+                            <input class="vTextField" id="id_ID_issued_from" maxlength="200" name="ID_issued_from" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-ID_number">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_ID_number">ID number:</label>
+
+                            <input class="vTextField" id="id_ID_number" maxlength="200" name="ID_number" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-ID_issue_date">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_ID_issue_date">ID issue date:</label>
+
+                            <input class="vDateField" id="id_ID_issue_date" name="ID_issue_date" required="" size="10"
+                                   type="text"><span class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;<a
+                                href="#" id="calendarlink1"><span class="date-icon"
+                                                                  title="Choose a Date"></span></a></span>
+
+
+                            <br><span class="timezonewarning">Note: You are 3 hours ahead of server time.</span></div>
+
+                    </div>
+
+                    <div class="form-row field-marital_status">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_marital_status">Marital status:</label>
+
+                            <select id="id_marital_status" name="marital_status" required="">
+                                <option selected="" value="">---------</option>
+
+                                <option value="S">Single</option>
+
+                                <option value="M">Married</option>
+
+                                <option value="O">Other</option>
+
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-childs_number">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_childs_number">Childs number:</label>
+
+                            <input class="vTextField" id="id_childs_number" maxlength="200" name="childs_number" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-mobile">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_mobile">Mobile:</label>
+
+                            <input class="vTextField" id="id_mobile" maxlength="200" name="mobile" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-mobile_other">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_mobile_other">Mobile other:</label>
+
+                            <input class="vTextField" id="id_mobile_other" maxlength="200" name="mobile_other" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-email">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_email">Email:</label>
+
+                            <input class="vTextField" id="id_email" maxlength="200" name="email" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-Hobbies">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_Hobbies">Hobbies:</label>
+
+                            <input class="vTextField" id="id_Hobbies" maxlength="200" name="Hobbies" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-residence_place">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_residence_place">Residence place:</label>
+
+                            <input class="vTextField" id="id_residence_place" maxlength="200" name="residence_place" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-residence_city">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_residence_city">Residence city:</label>
+
+                            <input class="vTextField" id="id_residence_city" maxlength="200" name="residence_city" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-residence_district">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_residence_district">Residence district:</label>
+
+                            <input class="vTextField" id="id_residence_district" maxlength="200" name="residence_district" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-residence_street">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_residence_street">Residence street:</label>
+
+                            <input class="vTextField" id="id_residence_street" maxlength="200" name="residence_street" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-home_phone">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_home_phone">Home phone:</label>
+
+                            <input class="vTextField" id="id_home_phone" maxlength="200" name="home_phone" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-whatsapp">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_whatsapp">Whatsapp:</label>
+
+                            <input class="vTextField" id="id_whatsapp" maxlength="200" name="whatsapp" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-telegram">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_telegram">Telegram:</label>
+
+                            <input class="vTextField" id="id_telegram" maxlength="200" name="telegram" required=""
+                                   type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_Name">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_Name">Close contacts 1 Name:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_Name" maxlength="200" name="close_contacts_1_Name"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_residence_place">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_residence_place">Close contacts 1 residence
+                                place:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_residence_place" maxlength="200"
+                                   name="close_contacts_1_residence_place" required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_relation">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_relation">Close contacts 1
+                                relation:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_relation" maxlength="200" name="close_contacts_1_relation"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_phone">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_phone">Close contacts 1 phone:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_phone" maxlength="200" name="close_contacts_1_phone"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_other_phone">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_other_phone">Close contacts 1 other
+                                phone:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_other_phone" maxlength="200" name="close_contacts_1_other_phone"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_job">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_job">Close contacts 1 job:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_job" maxlength="200" name="close_contacts_1_job"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_1_work_address">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_1_work_address">Close contacts 1 work
+                                address:</label>
+
+                            <input class="vTextField" id="id_close_contacts_1_work_address" maxlength="200" name="close_contacts_1_work_address"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_Name">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_Name">Close contacts 2 Name:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_Name" maxlength="200" name="close_contacts_2_Name"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_residence_place">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_residence_place">Close contacts 2 residence
+                                place:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_residence_place" maxlength="200"
+                                   name="close_contacts_2_residence_place" required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_relation">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_relation">Close contacts 2
+                                relation:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_relation" maxlength="200" name="close_contacts_2_relation"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_phone">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_phone">Close contacts 2 phone:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_phone" maxlength="200" name="close_contacts_2_phone"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_other_phone">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_other_phone">Close contacts 2 other
+                                phone:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_other_phone" maxlength="200" name="close_contacts_2_other_phone"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_job">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_job">Close contacts 2 job:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_job" maxlength="200" name="close_contacts_2_job"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row field-close_contacts_2_work_address">
+
+
+                        <div>
+
+
+                            <label class="required" for="id_close_contacts_2_work_address">Close contacts 2 work
+                                address:</label>
+
+                            <input class="vTextField" id="id_close_contacts_2_work_address" maxlength="200" name="close_contacts_2_work_address"
+                                   required="" type="text">
+
+
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+
+                <div class="submit-row">
+                    <input class="default" name="_save" type="submit" value="Save">
+
+
+                    <input name="_addanother" type="submit" value="Save and add another">
+                    <input name="_continue" type="submit" value="Save and continue editing">
+                </div>
+
+
+                <script data-model-name="jobapplication" id="django-admin-form-add-constants"
+                        src="/static/admin/js/change_form.js" type="text/javascript">
+                </script>
+
+
+                <script data-prepopulated-fields="[]" id="django-admin-prepopulated-fields-constants"
+                        src="/static/admin/js/prepopulate_init.js" type="text/javascript">
+                </script>
+
+
+            </div>
+        </form>
+    </div>
+
+
+    <br class="clear">
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

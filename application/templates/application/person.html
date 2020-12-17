@@ -1,0 +1,43 @@
+
+{% extends "admin/base.html" %}
+{% block content %}
+
+<h1>Job Application</h1>
+<form method="post" action="{% url 'application:createp'  %} ">{% csrf_token %}
+    <form method="post">
+    {{ job.management_form }}
+    {% for j in job %}
+        <ul>
+            <li>{{ j.job_fit_name }}</li>
+            <li>{{ j.job_know_channel }}</li>
+        </ul>
+    {% endfor %}
+</form>
+{{ form.errors }}
+    {{ form.as_p }}
+    <h2>contact</h2>
+    {{ contact.as_p }}
+    <h2>job</h2>
+    {{ job.as_p }}
+    <h2>qualification</h2>
+    {{ qualification.as_p }}
+    <h2>lang</h2>
+    {{ lang.as_p }}
+    <h2>computer</h2>
+    {{ computer.as_p }}
+    <h2>course</h2>
+    {{ course.as_p }}
+    <h2>dlicense</h2>
+    {{ dlicense.as_p }}
+    <h2>skill</h2>
+    {{ skill.as_p }}
+    <h2>experience</h2>
+    {{ experience.as_p }}
+
+    <h2>achievements</h2>
+    {{ achievements.as_p }}
+    <h2>inqueries</h2>
+    {{ inqueries.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock content %}

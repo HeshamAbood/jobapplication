@@ -1,0 +1,43 @@
+<h2 class="fs-title">Language</h2>
+<h3 class="fs-subtitle">Job related Info</h3>
+    {{ lang.management_form }}
+    {% for form in lang %}
+<div class="fieldWrapper">
+{{ form.lang_ar.errors }}
+<label for="{{ form.lang_ar.id_for_label }}">lang_ar:</label>
+    {{ form.lang_ar }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_en.errors }}
+<label for="{{ form.lang_en.id_for_label }}">lang_en:</label>
+    {{ form.lang_en }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_other1.errors }}
+<label for="{{ form.lang_other1.id_for_label }}">lang_other1:</label>
+    {{ form.lang_other1 }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_other2.errors }}
+<label for="{{ form.lang_other2.id_for_label }}">lang_other2:</label>
+    {{ form.lang_other2 }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_toefl.errors }}
+<label for="{{ form.lang_toefl.id_for_label }}">lang_toefl:</label>
+    {{ form.lang_toefl }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_en_exam.errors }}
+<label for="{{ form.lang_en_exam.id_for_label }}">lang_en_exam:</label>
+    {{ form.lang_en_exam }}
+</div>
+<div class="fieldWrapper">
+{{ form.lang_lang_exam.errors }}
+<label for="{{ form.lang_lang_exam.id_for_label }}">lang_lang_exam:</label>
+    {{ form.lang_lang_exam }}
+</div>
+{% endfor  %}
+<input class="previous action-button-previous" name="previous" type="button" value="Previous"/>
+<input class="next action-button" name="next" type="button" value="Next"/>
+
