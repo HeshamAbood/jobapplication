@@ -1,4 +1,5 @@
 
+
 import os
 #import django_heroku
 
@@ -30,7 +31,9 @@ SECRET_KEY = 'u18v_pogyo(5t+kron02-4_j6=#x7w%q+kbo=ksctuhg(*db1z'
 DEBUG = True
 
 #ALLOWED_HOSTS = []
+
 ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     'sesame.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
 
@@ -105,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

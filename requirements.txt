@@ -58,4 +58,6 @@ win-inet-pton==1.1.0
 wincertstore==0.2
 wrapt==1.12.1
 xmlschema==1.2.3
+whitenoise==5.2.0
 zeep==3.4.0
+

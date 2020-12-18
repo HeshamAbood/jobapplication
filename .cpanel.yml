@@ -8,4 +8,4 @@ deployment:
     - /bin/cp -R static $DEPLOYPATH
     - /bin/cp -R templates $DEPLOYPATH
     - /bin/cp db.sqlite3 $DEPLOYPATH
-    - /bin/cp manage.py $DEPLOYPATH
+
