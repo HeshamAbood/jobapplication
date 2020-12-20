@@ -42,7 +42,7 @@ class ApplySuccessView(TemplateView):
 class ApplyCreateView(CreateView):
 #    template_name = "application/person.html"
     model = JobApp
-    success_url = '/apply/success/'
+    success_url = '/apply/logout/'
     template_name = "/admin/change_list.html"
 
 
