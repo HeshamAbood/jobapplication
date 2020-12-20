@@ -10,7 +10,6 @@ from jobsApp import settings
 
 
 class JobApp(models.Model):
-    verbose_name_plural = "استمارة طلب توظيف"
     nationalities = (('Y', 'يمني'), ('O', 'أخرى'))
     blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'),)
     id_types = (('ID', 'بطاقة'), ('PS', 'جوازسفر'), ('O', 'أخرى'))
@@ -66,6 +65,9 @@ class JobApp(models.Model):
     def __str__(self):
         return str(self.first_name)
 
+    class Meta:
+        verbose_name ="استمارة طلب توظيف"
+
 
 
 class Person(models.Model):
@@ -117,7 +119,6 @@ class Person(models.Model):
 
 
 class CloseContact(models.Model):
-    verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة"
     close_contacts_Name = models.CharField(max_length=200,verbose_name=u"الاسم" , default="", )
     close_contacts_residence_place = models.CharField(max_length=200,verbose_name=u"عنوان السكن", default="",)
     close_contacts_relation = models.CharField(max_length=200,verbose_name=u"نوع القرابة" ,default="", )
@@ -128,7 +129,6 @@ class CloseContact(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ", default="" )
 
 class JobDetails(models.Model):
-    verbose_name_plural = "معلومات الوظيفة التي تم التقدم لها"
     job_fit_name = models.CharField(max_length=200,verbose_name=u"الوظيفة التي تقدمت لشغلها و التي تتناسب مع مؤهلك" ,default="", )
     job_know_channel = models.CharField(max_length=200,verbose_name=u"كيف علمت بهذه الوظيفة" ,default="", )
     job_salary_exp = models.CharField(max_length=100,verbose_name=u"الراتب والمزايا المتوقعة" ,default="", )
@@ -140,7 +140,6 @@ class JobDetails(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Qualification(models.Model):
-    verbose_name_plural = "المعلومات الخاصة بالمؤهلات العلمية"
     types=(('s','الثانوية'),('id', 'دبلوم متوسط'),
             ('b','بكالوريوس'),('hd','دبلوم عالي'),('m','ماجيستير'),
             ('phd','دكتوراه'),('o','اخرى'))
@@ -168,7 +167,6 @@ class Qualification(models.Model):
 
 
 class Lang(models.Model):
-    verbose_name_plural = "اللغات التي تجيدها"
     type_options=(('ar','العربية'),('en','الإنجليزية'),('o','اخرى'))
     target_level=(('e','ممتاز'),('vg','جيد جد ا'),('g','جيد'),('ac','متوسط'),(('w','ضعيف')))
     lang_type = models.CharField(max_length=200, default="",verbose_name=u"اللغة", choices=type_options, )
@@ -179,7 +177,6 @@ class Lang(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class LangExam(models.Model):
-    verbose_name_plural = "لامتحان اللغة"
     type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'))
     lang_ex_type= models.CharField(max_length=200, default="",verbose_name=u"هل سبق وتقدمت لامتحان اللغة",  null=True, choices=type_options, )
     lang_score = models.CharField(max_length=200, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
@@ -187,14 +184,12 @@ class LangExam(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
 
 class ComputerKnowledge(models.Model):
-    verbose_name_plural = "استخدام الحاسب الآلي والانترنت"
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
     computer_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام الحاسب الآلي", default="", null=True, blank=True, choices=yn_choices , )
     internet_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام البريد الإلكتروني", default="", null=True, blank=True, choices=yn_choices  )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Courses(models.Model):
-    verbose_name_plural = "الدورات التدريبة"
     courses_Name = models.CharField(max_length=200,verbose_name=u"اسم الدورة", default="", null=True, blank=True, )
     start_date = models.DateField(default=date.today,verbose_name=u"الفترة من", null=True, blank=True, )
     end_date = models.DateField(default=date.today,verbose_name=u"الفترة إلى", null=True, blank=True, )
@@ -208,19 +203,16 @@ class Courses(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class DrivingLicense(models.Model):
-    verbose_name_plural = "Staff Profile"
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
     driving_license = models.CharField(max_length=200,verbose_name=u"هل تستطيع قيادة السيارات وسائل النقل", default="", null=True, choices=yn_choices )
     driving_license_active = models.CharField(max_length=20,verbose_name=u"هل لديك رخصة قيادة سارية المفعول", default="", choices=yn_choices)
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" , )
 
 class Skill(models.Model):
-    verbose_name_plural = "معلومات رخصة القيادة"
     skill = models.TextField(max_length=500, default="",verbose_name=u"الرجاء تحديد أي مهارات/قدرات خاصة بك", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Experience(models.Model):
-    verbose_name_plural = "الخبرات العملية"
     place = models.CharField(max_length=200, default="",verbose_name=u"أسم المنشأة وعنوانها", null=True, blank=True, )
     position1_name=models.CharField(max_length=200, default="",verbose_name=u"مسميات الوظائف التي شغلتها 1", null=True, blank=True, )
     position1_from_date=models.DateField(default=date.today,verbose_name=u"من تاريخ", null=True, blank=True, )
@@ -250,12 +242,10 @@ class Position(models.Model):
     experience=models.ForeignKey(Experience, on_delete=models.CASCADE,default="" )
 
 class Acchievemnts(models.Model):
-    verbose_name_plural = "الانجازات:"
     details=models.TextField(max_length=500, default="",verbose_name=u"اذكر باختصار أهم انجازاتك المهنية", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
 
 class Inqueries(models.Model):
-    verbose_name_plural = "استفسارات عامة"
     city_options = ( (1,'عمران'),(2,'محافظة'),(3,'الحديدة'),(4,'الجوف'),(5,'المحويت'),(6,'أمانة'),(7,'ذمار'),(8,'حجة'),(9,'إب'),(10,'مأرب'),(11,'محافظة'),(12,'صعدة'),
                      (13,'صنعاء'),(14,'تعز'),(15,'عدن'),(16,'أبين'),(17,'محافظة'),(18,'المهرة'),(19,'حضرموت'),(20,'أرخبيل'),(21,'لحج'),(22,'شبوة'))
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))

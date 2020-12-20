@@ -23,5 +23,5 @@ admin.site.register(Inqueries)
 admin.site.register(JobApp, JobAppAdmin)
 
 
-admin.site.site_header="Job Apply"
-admin.AdminSite.index_template='admin/index.html'
+admin.site.site_header="استمارة طلب توظيف"
+#admin.AdminSite.index_template='admin/index.html'

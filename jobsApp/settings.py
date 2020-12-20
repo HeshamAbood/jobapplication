@@ -4,6 +4,8 @@ import os
 #import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.conf.global_settings import gettext_noop
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Static files (CSS, JavaScript, Images)
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 
 ]
 
@@ -115,6 +118,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LOCAL_PATHS = []
+
+LANGUAGES = [
+
+    ('ar', gettext_noop('Arabic')),
+
+]
+LANGUAGES_BIDI = ["ar"]
 
 TIME_ZONE = 'UTC'
 

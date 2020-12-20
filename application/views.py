@@ -53,6 +53,8 @@ class CloseContactInline(admin.StackedInline):
               ('close_contacts_residence_place', 'close_contacts_relation'),
               ('close_contacts_phone', 'close_contacts_other_phone'),
               ('close_contacts_job', 'close_contacts_work_address'),)
+    verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة"
+    verbose_name = "أسماء مقربين للتواصل بهم عند الحاجة"
 
 class JobDetailsInline(admin.StackedInline):
     model = JobDetails
@@ -62,37 +64,61 @@ class JobDetailsInline(admin.StackedInline):
               ('job_in_bank_relat', 'job_out_bank_relat'),)
     extra = 1
     max_num = 1
-class QualificationInline(admin.TabularInline):
+    verbose_name_plural = "معلومات الوظيفة التي تم التقدم لها"
+    verbose_name = "معلومات الوظيفة التي تم التقدم لها"
+
+class QualificationInline(admin.StackedInline):
     model = Qualification
-    fields = ('clfy_name', 'clfy_from_date', 'clfy_to_date', 'clfy_place', 'clfy_country',
-              'clfy_type', 'clfy_graduate_date','clfy_ranking',)
+    fields = (('clfy_name', 'clfy_from_date', 'clfy_to_date', 'clfy_place', 'clfy_country'),
+              ('clfy_type', 'clfy_graduate_date','clfy_ranking',))
     extra = 1
+    verbose_name_plural = "المعلومات الخاصة بالمؤهلات العلمية"
+    verbose_name = "المعلومات الخاصة بالمؤهلات العلمية"
+
 
 class LangInline(admin.TabularInline):
     model = Lang
     fields = ('lang_type','conv_level','writing_level','reading_level',)
     extra = 2
+    verbose_name_plural = "اللغات التي تجيدها"
+    verbose_name = "اللغة التي تجيدها"
+
 class LangExamInline(admin.TabularInline):
     model = LangExam
     fields = ('lang_ex_type','lang_score',)
+    verbose_name_plural = "لامتحان اللغة"
+    verbose_name = "لامتحان اللغة"
+
 
 class ComputerKnowledgeInline(admin.StackedInline):
     model = ComputerKnowledge
     extra = 1
     max_num = 1
-class CoursesInline(admin.TabularInline):
+    verbose_name_plural = "استخدام الحاسب الآلي والانترنت"
+    verbose_name = "استخدام الحاسب الآلي والانترنت"
+
+class CoursesInline(admin.StackedInline):
     model = Courses
-    fields = ('courses_Name', 'start_date', 'end_date', 'palce', 'country', 'cert_type', 'interval', 'score', 'specialization', )
+    fields = (('courses_Name', 'start_date', 'end_date', 'palce', 'country'),
+    ('cert_type', 'interval', 'score', 'specialization', ))
+    verbose_name_plural = "الدورات التدريبة"
+    verbose_name = "الدورات التدريبة"
+    extra = 1
 
 class DrivingLicenseInline(admin.TabularInline):
     model = DrivingLicense
     extra = 1
     max_num = 1
+    verbose_name_plural = "معلومات رخصة القيادة"
+    verbose_name = "معلومات رخصة القيادة"
 
 class SkillInline(admin.TabularInline):
     model = Skill
     extra = 1
     max_num = 1
+    verbose_name_plural = "معلومات رخصة القيادة"
+    verbose_name = "معلومات رخصة القيادة"
+
 class ExperienceInline(admin.StackedInline):
     model = Experience
     fields = ('place',
@@ -104,23 +130,34 @@ class ExperienceInline(admin.StackedInline):
                  ('last_supervison', 'last_supervison_phone'),
                  'end_service_reason')
     extra = 1
+    verbose_name_plural = "الخبرات العملية"
+    verbose_name = "الخبرات العملية"
+
 class AcchievemntsInline(admin.TabularInline):
     model = Acchievemnts
     extra = 1
     max_num = 1
+    verbose_name_plural = "الانجازات"
+    verbose_name = "الانجازات"
+
 class InqueriesInline(admin.StackedInline):
     model = Inqueries
     extra = 1
     max_num = 1
+    verbose_name_plural = "استفسارات عامة"
+    verbose_name = "استفسارات عامة"
+
 
 class JobAppAdmin(admin.ModelAdmin):
     model=JobApp
+    verbose_name_plural = "استمارة طلب توظيف"
+    verbose_name ="استمارة طلب توظيف"
     fields = (('first_name', 'father_name'),
               ('grandfather_name', 'surname'),
               ('birth_date', 'nationality'),
               ('blood_type', 'father_birth_place'),
-              ('ID_type', 'ID_number',
-              'ID_issued_from', 'ID_issue_date'),
+              ('ID_type', 'ID_number'),
+              ('ID_issued_from', 'ID_issue_date'),
               ('mobile', 'mobile_other'),
               ('email', 'email_other'),
               'Hobbies',
