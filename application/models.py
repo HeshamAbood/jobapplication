@@ -131,7 +131,7 @@ class CloseContact(models.Model):
 class JobDetails(models.Model):
     job_fit_name = models.CharField(max_length=200,verbose_name=u"الوظيفة التي تقدمت لشغلها و التي تتناسب مع مؤهلك" ,default="", )
     job_know_channel = models.CharField(max_length=200,verbose_name=u"كيف علمت بهذه الوظيفة" ,default="", )
-    job_salary_exp = models.CharField(max_length=200,verbose_name=u"الراتب والمزايا المتوقعة" ,default="", )
+    job_salary_exp = models.CharField(max_length=100,verbose_name=u"الراتب والمزايا المتوقعة" ,default="", )
     job_favorite_hours = models.CharField(max_length=200,verbose_name=u"ساعات العمل التي تفضلها" ,default="", )
     job_non_announcement = models.CharField(max_length=200,verbose_name=u"حدد وضيفة أخرى معلن عنها وترغب بالتقدم لها وتعتقد أنك مؤهل لها عدا الوظيفة المتقدم لها" ,default="", null=True, blank=True, )
     job_least_income = models.CharField(max_length=200,verbose_name=u"ما هو أقل دخل شهري يمكنك العمل به شاملاً جميع البدلات" ,default="", )
