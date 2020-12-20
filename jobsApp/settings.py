@@ -79,7 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'jobsApp.wsgi.application'
 AUTHENTICATION_BACKENDS = ["sesame.backends.ModelBackend"]
-SESAME_ONE_TIME = True
+#SESAME_ONE_TIME = True
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 

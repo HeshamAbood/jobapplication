@@ -64,7 +64,8 @@ class JobDetailsInline(admin.StackedInline):
     max_num = 1
 class QualificationInline(admin.TabularInline):
     model = Qualification
-    fields = ('clfy_name', 'clfy_from_date', 'clfy_to_date', 'clfy_place', 'clfy_country', 'clfy_type', 'clfy_graduate_date','clfy_ranking','clfy_photo',)
+    fields = ('clfy_name', 'clfy_from_date', 'clfy_to_date', 'clfy_place', 'clfy_country',
+              'clfy_type', 'clfy_graduate_date','clfy_ranking',)
     extra = 1
 
 class LangInline(admin.TabularInline):
@@ -118,13 +119,14 @@ class JobAppAdmin(admin.ModelAdmin):
               ('grandfather_name', 'surname'),
               ('birth_date', 'nationality'),
               ('blood_type', 'father_birth_place'),
-               'ID_type', ('ID_issued_from', 'ID_number',),('ID_photo', 'ID_issue_date'),
+              ('ID_type', 'ID_number',
+              'ID_issued_from', 'ID_issue_date'),
               ('mobile', 'mobile_other'),
               ('email', 'email_other'),
               'Hobbies',
               ('residence_place', 'residence_city'),
               ('residence_district', 'residence_street'),
-              ('home_phone', 'whatsapp', 'telegram','photo'), )
+              ('home_phone', 'whatsapp', 'telegram'), )
 
 
 

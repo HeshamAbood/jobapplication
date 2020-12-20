@@ -10,12 +10,17 @@ from jobsApp import settings
 
 
 class JobApp(models.Model):
-    nationalities = (('Y', 'Yemeni'), ('O', 'Other'))
-    blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'))
-    id_types = (('ID', 'ID'), ('PS', 'Passport'), ('O', 'Other'))
-    marital_options = (('S', 'Single'), ('M', 'Married'), ('O', 'Other'))
-    city_options = ( (1, 'Sanaa'), (2, 'Aden'), (3, 'IBB'), (4, 'Taiz'), (5, 'Thamar'), (6, 'Amran'), (7, 'Shabwa'), (8, 'Haja'))
-    yn_choices = (('Y', 'Yes'), ('N', 'No'))
+    verbose_name_plural = "استمارة طلب توظيف"
+    nationalities = (('Y', 'يمني'), ('O', 'أخرى'))
+    blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'),)
+    id_types = (('ID', 'بطاقة'), ('PS', 'جوازسفر'), ('O', 'أخرى'))
+    marital_options = (('S', 'عازب'), ('M', 'متزوج'), ('O', 'أخرى'))
+    city_options = (
+    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
+    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
+    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
+    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
 
 
     def user_directory_path(instance, filename):
@@ -35,7 +40,7 @@ class JobApp(models.Model):
     ID_issued_from = models.CharField(max_length=200, verbose_name=u"صادرة من" )
     ID_number = models.CharField(max_length=200, verbose_name=u"برقم" )
     ID_issue_date = models.DateField(default=date.today, verbose_name=u"وبتاريخ" )
-    ID_photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension], default="", verbose_name=u"صورة شخصية" )
+#    ID_photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension], default="", verbose_name=u"صورة شخصية" )
 
     mobile = models.CharField(max_length=200, verbose_name=u"رقم هاتفك المحمول" )
     mobile_other = models.CharField(max_length=200, verbose_name=u"رقم أخر", default="", null=True, blank=True, )
@@ -53,21 +58,10 @@ class JobApp(models.Model):
     home_phone = models.CharField(max_length=200, default="", verbose_name=u"رقم هاتف المنزل", null=True, blank=True, )
     whatsapp = models.CharField(max_length=200, default="", verbose_name=u"حساب واتساب", null=True, blank=True, )
     telegram = models.CharField(max_length=200, default="", verbose_name=u"حساب التليجرام", null=True, blank=True, )
-    photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension],verbose_name=u"صورة شخصية" ,default="")
+#    photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension],verbose_name=u"صورة شخصية" ,default="")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, )
 
 
-    #    contact = models.OneToOneField(CloseContact, on_delete=models.CASCADE,  )
-#    job = models.OneToOneField(JobDetails, on_delete=models.CASCADE)
-#    qualification = models.OneToOneField(Qualification, on_delete=models.CASCADE)
-#    lang = models.OneToOneField(Lang, on_delete=models.CASCADE)
-#    computer = models.OneToOneField(ComputerKnowledge, on_delete=models.CASCADE)
-#    course = models.OneToOneField(Courses, on_delete=models.CASCADE)
-#    dlicense = models.OneToOneField(DrivingLicense, on_delete=models.CASCADE)
-#    skill = models.OneToOneField(Skill, on_delete=models.CASCADE)
-#    experience = models.OneToOneField(Experience, on_delete=models.CASCADE)
-#    acchievemnt = models.OneToOneField(Acchievemnts, on_delete=models.CASCADE)
-#    inquery = models.OneToOneField(Inqueries, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.first_name)
@@ -79,8 +73,12 @@ class Person(models.Model):
     blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'))
     id_types = (('ID', 'ID'), ('PS', 'Passport'), ('O', 'Other'))
     marital_options = (('S', 'Single'), ('M', 'Married'), ('O', 'Other'))
-    city_options = ( ('1', 'Sanaa'), ('2', 'Aden'), ('3', 'IBB'), ('4', 'Taiz'), ('5', 'Thamar'), ('6', 'Amran'), ('7', 'Shabwa'), ('8', 'Haja'))
-    yn_choices = (('Y', 'Yes'), ('N', 'No'))
+    city_options = (
+    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
+    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
+    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
+    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
 
     first_name = models.CharField(max_length=200)
     father_name = models.CharField(max_length=200)
@@ -119,6 +117,7 @@ class Person(models.Model):
 
 
 class CloseContact(models.Model):
+    verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة"
     close_contacts_Name = models.CharField(max_length=200,verbose_name=u"الاسم" , default="", )
     close_contacts_residence_place = models.CharField(max_length=200,verbose_name=u"عنوان السكن", default="",)
     close_contacts_relation = models.CharField(max_length=200,verbose_name=u"نوع القرابة" ,default="", )
@@ -129,6 +128,7 @@ class CloseContact(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ", default="" )
 
 class JobDetails(models.Model):
+    verbose_name_plural = "معلومات الوظيفة التي تم التقدم لها"
     job_fit_name = models.CharField(max_length=200,verbose_name=u"الوظيفة التي تقدمت لشغلها و التي تتناسب مع مؤهلك" ,default="", )
     job_know_channel = models.CharField(max_length=200,verbose_name=u"كيف علمت بهذه الوظيفة" ,default="", )
     job_salary_exp = models.CharField(max_length=100,verbose_name=u"الراتب والمزايا المتوقعة" ,default="", )
@@ -140,9 +140,10 @@ class JobDetails(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Qualification(models.Model):
-    types=(('s','Secondary'),('id', 'Intermediate Diploma'),
-            ('b','Bechalore'),('hd','High Diploma'),('m','Master'),
-            ('phd','Phelosephy'),('o','Other'))
+    verbose_name_plural = "المعلومات الخاصة بالمؤهلات العلمية"
+    types=(('s','الثانوية'),('id', 'دبلوم متوسط'),
+            ('b','بكالوريوس'),('hd','دبلوم عالي'),('m','ماجيستير'),
+            ('phd','دكتوراه'),('o','اخرى'))
 
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -156,7 +157,7 @@ class Qualification(models.Model):
     clfy_type = models.CharField(max_length=80, default="",verbose_name=u"نوع الشهادة", null=True, blank=True,)
     clfy_graduate_date = models.DateField(default=date.today,verbose_name=u"سنة التخرج",)
     clfy_ranking = models.CharField(max_length=80, default="", verbose_name=u"التقدير العام", null=True, blank=True, )
-    clfy_photo = models.FileField(upload_to=user_directory_path,validators=[validate_file_extension] , verbose_name=u"وثيقة المؤهل",default="")
+#    clfy_photo = models.FileField(upload_to=user_directory_path,validators=[validate_file_extension] , verbose_name=u"وثيقة المؤهل",default="")
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,null=True, blank=True)
 
@@ -167,7 +168,8 @@ class Qualification(models.Model):
 
 
 class Lang(models.Model):
-    type_options=(('ar','Arabic'),('en','english'),('o','Other'))
+    verbose_name_plural = "اللغات التي تجيدها"
+    type_options=(('ar','العربية'),('en','الإنجليزية'),('o','اخرى'))
     target_level=(('e','ممتاز'),('vg','جيد جد ا'),('g','جيد'),('ac','متوسط'),(('w','ضعيف')))
     lang_type = models.CharField(max_length=200, default="",verbose_name=u"اللغة", choices=type_options, )
     conv_level=models.CharField(max_length=200, default="",verbose_name=u"محادثة", choices=target_level, )
@@ -177,18 +179,22 @@ class Lang(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class LangExam(models.Model):
-    type_options = (('T', 'Toefel'), ('en', 'english'), ('o', 'Other'))
+    verbose_name_plural = "لامتحان اللغة"
+    type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'))
     lang_ex_type= models.CharField(max_length=200, default="",verbose_name=u"هل سبق وتقدمت لامتحان اللغة",  null=True, choices=type_options, )
     lang_score = models.CharField(max_length=200, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
 
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
 
 class ComputerKnowledge(models.Model):
-    computer_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام الحاسب الآلي", default="", null=True, blank=True, )
-    internet_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام البريد الإلكتروني", default="", null=True, blank=True, )
+    verbose_name_plural = "استخدام الحاسب الآلي والانترنت"
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
+    computer_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام الحاسب الآلي", default="", null=True, blank=True, choices=yn_choices , )
+    internet_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام البريد الإلكتروني", default="", null=True, blank=True, choices=yn_choices  )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Courses(models.Model):
+    verbose_name_plural = "الدورات التدريبة"
     courses_Name = models.CharField(max_length=200,verbose_name=u"اسم الدورة", default="", null=True, blank=True, )
     start_date = models.DateField(default=date.today,verbose_name=u"الفترة من", null=True, blank=True, )
     end_date = models.DateField(default=date.today,verbose_name=u"الفترة إلى", null=True, blank=True, )
@@ -202,16 +208,19 @@ class Courses(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class DrivingLicense(models.Model):
-    yn_choices = (('Y', 'Yes'), ('N', 'No'))
-    driving_license = models.CharField(max_length=200,verbose_name=u"هل تستطيع قيادة السيارات وسائل النقل", default="", null=True, blank=True, )
+    verbose_name_plural = "Staff Profile"
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
+    driving_license = models.CharField(max_length=200,verbose_name=u"هل تستطيع قيادة السيارات وسائل النقل", default="", null=True, choices=yn_choices )
     driving_license_active = models.CharField(max_length=20,verbose_name=u"هل لديك رخصة قيادة سارية المفعول", default="", choices=yn_choices)
-    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
+    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" , )
 
 class Skill(models.Model):
+    verbose_name_plural = "معلومات رخصة القيادة"
     skill = models.TextField(max_length=500, default="",verbose_name=u"الرجاء تحديد أي مهارات/قدرات خاصة بك", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Experience(models.Model):
+    verbose_name_plural = "الخبرات العملية"
     place = models.CharField(max_length=200, default="",verbose_name=u"أسم المنشأة وعنوانها", null=True, blank=True, )
     position1_name=models.CharField(max_length=200, default="",verbose_name=u"مسميات الوظائف التي شغلتها 1", null=True, blank=True, )
     position1_from_date=models.DateField(default=date.today,verbose_name=u"من تاريخ", null=True, blank=True, )
@@ -234,19 +243,22 @@ class Experience(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Position(models.Model):
+    verbose_name_plural = "الوظائف"
     name=models.CharField(max_length=200,verbose_name=u" ",default="", null=True, blank=True, )
     from_date=models.DateField(default=date.today,verbose_name=u" ",)
     to_date=models.DateField(default=date.today, verbose_name=u" ",)
     experience=models.ForeignKey(Experience, on_delete=models.CASCADE,default="" )
 
 class Acchievemnts(models.Model):
+    verbose_name_plural = "الانجازات:"
     details=models.TextField(max_length=500, default="",verbose_name=u"اذكر باختصار أهم انجازاتك المهنية", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
 
 class Inqueries(models.Model):
+    verbose_name_plural = "استفسارات عامة"
     city_options = ( (1,'عمران'),(2,'محافظة'),(3,'الحديدة'),(4,'الجوف'),(5,'المحويت'),(6,'أمانة'),(7,'ذمار'),(8,'حجة'),(9,'إب'),(10,'مأرب'),(11,'محافظة'),(12,'صعدة'),
                      (13,'صنعاء'),(14,'تعز'),(15,'عدن'),(16,'أبين'),(17,'محافظة'),(18,'المهرة'),(19,'حضرموت'),(20,'أرخبيل'),(21,'لحج'),(22,'شبوة'))
-    yn_choices = (('Y', 'Yes'), ('N', 'No'))
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
 
     inq_loan=models.CharField(max_length=20, default="",verbose_name=u"هل عليك قروض أو ديون أو مشاكل مادية", choices=yn_choices)
     inq_training=models.CharField(max_length=20, default="",verbose_name=u"هل ترغب في الحصول على دورات تدريبية في مجال عملك", choices=(('Y', 'Yes'), ('N', 'No'), ('D', 'Not Now')))
@@ -267,7 +279,11 @@ class JobApplication(models.Model):
     blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'))
     id_types = (('ID', 'ID'), ('PS', 'Passport'), ('O', 'Other'))
     marital_options = (('S', 'Single'), ('M', 'Married'), ('O', 'Other'))
-    city_options = ( (1, 'Sanaa'), (2, 'Aden'), (3, 'IBB'), (4, 'Taiz'), (5, 'Thamar'), (6, 'Amran'), (7, 'Shabwa'), (8, 'Haja'))
+    city_options = (
+    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
+    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
+    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
+    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
     yn_choices = (('Y', 'Yes'), ('N', 'No'))
 
     first_name = models.CharField(max_length=200)
