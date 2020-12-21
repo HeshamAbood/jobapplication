@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator, FileExtensionValidator
 from django.db import models
 from .validators import validate_file_extension
 from jobsApp import settings
-
+from django.contrib.auth import get_user_model
 
 class JobApp(models.Model):
     nationalities = (('Y', 'يمني'), ('O', 'أخرى'))
@@ -58,64 +58,13 @@ class JobApp(models.Model):
     whatsapp = models.CharField(max_length=200, default="", verbose_name=u"حساب واتساب", null=True, blank=True, )
     telegram = models.CharField(max_length=200, default="", verbose_name=u"حساب التليجرام", null=True, blank=True, )
 #    photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension],verbose_name=u"صورة شخصية" ,default="")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, )
-
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,)
 
     def __str__(self):
-        return str(self.first_name)
+        return str(self.user)+" "+str(self.first_name)+" "+str(self.father_name)+" "+str(self.surname)+" "+str(self.ID_number)
 
     class Meta:
         verbose_name ="استمارة طلب توظيف"
-
-
-
-class Person(models.Model):
-    nationalities = (('Y', 'Yemeni'), ('O', 'Other'))
-    blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'))
-    id_types = (('ID', 'ID'), ('PS', 'Passport'), ('O', 'Other'))
-    marital_options = (('S', 'Single'), ('M', 'Married'), ('O', 'Other'))
-    city_options = (
-    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
-    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
-    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
-    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
-    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
-
-    first_name = models.CharField(max_length=200)
-    father_name = models.CharField(max_length=200)
-    grandfather_name = models.CharField(max_length=200)
-    surname = models.CharField(max_length=200)
-    birth_date = models.DateField(default=date.today)
-
-    nationality = models.CharField(max_length=200, choices=nationalities)
-    blood_type = models.CharField(max_length=200, choices=blood_groups, null=True, blank=True, )
-    father_birth_place = models.CharField(max_length=200)
-    ID_type = models.CharField(max_length=200, choices=id_types)
-    ID_issued_from = models.CharField(max_length=200)
-    ID_number = models.CharField(max_length=200)
-    ID_issue_date = models.DateField(default=date.today)
-
-    mobile = models.CharField(max_length=200)
-    mobile_other = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    email = models.EmailField(max_length=100, default="")
-    email_other = models.EmailField(max_length=100, default="")
-
-    Hobbies = models.TextField(max_length=2000, default="", null=True, blank=True, )
-
-    residence_place = models.CharField(max_length=200, default="", )
-    residence_city = models.CharField( max_length=200, choices=city_options, )
-    residence_district = models.CharField(max_length=200, default="", )
-    residence_street = models.CharField(max_length=200, default="", )
-
-    home_phone = models.CharField(max_length=200, default="0", null=True, blank=True, )
-    whatsapp = models.CharField(max_length=200, default="0", null=True, blank=True, )
-    telegram = models.CharField(max_length=200, default="0", null=True, blank=True, )
-
-
-    def __str__(self):
-        return str(self.first_name)
 
 
 class CloseContact(models.Model):
@@ -260,127 +209,4 @@ class Inqueries(models.Model):
     inq_accept_w_place=models.CharField(max_length=200,default="",verbose_name=u"وهل تقبل العمل في محافظة إذا طلب منك ذلك", choices=yn_choices )
     inq_explain=models.CharField(max_length=200,default="",verbose_name=u"لماذا ترغب في العمل لدى البنك المركزي اليمني؟")
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
-
-
-
-# Create your models here.
-class JobApplication(models.Model):
-    nationalities = (('Y', 'Yemeni'), ('O', 'Other'))
-    blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'))
-    id_types = (('ID', 'ID'), ('PS', 'Passport'), ('O', 'Other'))
-    marital_options = (('S', 'Single'), ('M', 'Married'), ('O', 'Other'))
-    city_options = (
-    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
-    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
-    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
-    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
-    yn_choices = (('Y', 'Yes'), ('N', 'No'))
-
-    first_name = models.CharField(max_length=200)
-    father_name = models.CharField(max_length=200)
-    grandfather_name = models.CharField(max_length=200)
-    surname = models.CharField(max_length=200)
-    birth_date = models.DateField(default=date.today)
-
-    nationality = models.CharField(max_length=200, choices=nationalities)
-    blood_type = models.CharField(max_length=200, choices=blood_groups, null=True, blank=True, )
-    father_birth_place = models.CharField(max_length=200)
-    ID_type = models.CharField(max_length=200, choices=id_types)
-    ID_issued_from = models.CharField(max_length=200)
-    ID_number = models.CharField(max_length=200)
-    ID_issue_date = models.DateField(default=date.today)
-
-    marital_status = models.CharField(max_length=200, choices=marital_options)
-    childs_number = models.CharField(max_length=200, default=0, null=True, blank=True, )
-
-    mobile = models.CharField(max_length=200)
-    mobile_other = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    email = models.EmailField(max_length=100, default="")
-    email_other = models.EmailField(max_length=100, default="")
-
-    Hobbies = models.TextField(max_length=2000, default="", null=True, blank=True, )
-
-    residence_place = models.CharField(max_length=200, default="", )
-    residence_city = models.IntegerField( default="0", choices=city_options, )
-    residence_district = models.CharField(max_length=200, default="", )
-    residence_street = models.CharField(max_length=200, default="", )
-
-    home_phone = models.CharField(max_length=200, default="0", null=True, blank=True, )
-    whatsapp = models.CharField(max_length=200, default="0", null=True, blank=True, )
-    telegram = models.CharField(max_length=200, default="0", null=True, blank=True, )
-
-    close_contacts_1_Name = models.CharField(max_length=200, default="", )
-    close_contacts_1_residence_place = models.CharField(max_length=200, default="",)
-    close_contacts_1_relation = models.CharField(max_length=200, default="", )
-    close_contacts_1_phone = models.CharField(max_length=200, default="", )
-    close_contacts_1_other_phone = models.CharField(max_length=200, default="", null=True, blank=True, )
-    close_contacts_1_job = models.CharField(max_length=200, default="", )
-    close_contacts_1_work_address = models.CharField(max_length=200, default="", )
-
-    close_contacts_2_Name = models.CharField(max_length=200, default="", )
-    close_contacts_2_residence_place = models.CharField(max_length=200, default="", )
-    close_contacts_2_relation = models.CharField(max_length=200, default="", )
-    close_contacts_2_phone = models.CharField(max_length=200, default="", )
-    close_contacts_2_other_phone = models.CharField(max_length=200, default="", null=True, blank=True, )
-    close_contacts_2_job = models.CharField(max_length=200, default="", )
-    close_contacts_2_work_address = models.CharField(max_length=200, default="", )
-
-    job_fit_name = models.CharField(max_length=200, default="", )
-    job_know_channel = models.CharField(max_length=200, default="", )
-    job_salary_exp = models.CharField(max_length=200, default="", )
-    job_favorite_hours = models.CharField(max_length=200, default="", )
-    job_non_announcement = models.CharField(max_length=200, default="", null=True, blank=True, )
-    job_least_income = models.CharField(max_length=200, default="", )
-    job_in_bank_relat = models.CharField(max_length=200, default="", null=True, blank=True, )
-    job_out_bank_relat = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    clfy_secondary = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_inter_diplom = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_bechalore = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_high_diplom = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_master = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_phd = models.CharField(max_length=200, default="", null=True, blank=True, )
-    clfy_other = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    lang_ar = models.CharField(max_length=200, default="", )
-    lang_en = models.CharField(max_length=200, default="", )
-    lang_other1 = models.CharField(max_length=200, default="", null=True, blank=True, )
-    lang_other2 = models.CharField(max_length=200, default="", null=True, blank=True, )
-    lang_toefl = models.CharField(max_length=200, default="", null=True, blank=True, )
-    lang_en_exam = models.CharField(max_length=200, default="", null=True, blank=True, )
-    lang_lang_exam = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    computer_knowledge = models.CharField(max_length=200, default="", null=True, blank=True, )
-    internet_knowledge = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    courses_1 = models.CharField(max_length=200, default="", null=True, blank=True, )
-    courses_2 = models.CharField(max_length=200, default="", null=True, blank=True, )
-    courses_3 = models.CharField(max_length=200, default="", null=True, blank=True, )
-    courses_4 = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    driving_license = models.CharField(max_length=200, default="", null=True, blank=True, )
-    driving_license_active = models.CharField(max_length=20, default="", choices=yn_choices)
-
-    skills = models.TextField(max_length=500, default="", null=True, blank=True, )
-
-    experience = models.CharField(max_length=200, default="", null=True, blank=True, )
-
-    achievements = models.TextField(max_length=500, default="", null=True, blank=True, )
-
-    inq_loan=models.CharField(max_length=20, default="", choices=yn_choices)
-    inq_training=models.CharField(max_length=20, default="", choices=(('Y', 'Yes'), ('N', 'No'), ('D', 'Not Now')))
-    inq_training_detail=models.CharField(max_length=200,default="",null=True, blank=True, )
-    inq_long_term_disease=models.CharField(max_length=200,default="",null=True, blank=True, )
-    inq_surgery=models.CharField(max_length=200,default="",null=True, blank=True, )
-    inq_cust_contact=models.CharField(max_length=20,default="",choices=(('Y', 'Yes'), ('N', 'No'), ('S', 'Sometimes')) )
-    inq_favor_w_place=models.IntegerField(default="0", choices=city_options )
-    inq_accept_w_place=models.CharField(max_length=200,default="", choices=yn_choices )
-    inq_explain=models.CharField(max_length=200,default="", )
-
-
-
-    def __str__(self):
-        return str(self.first_name)
-
 

@@ -1,42 +1,28 @@
 from django.contrib import admin
-from django.shortcuts import render
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-
+from .models import *
 from .forms import *
 # Create your views here.
 from django.views import generic
-from .models import JobApplication
+
 from django.views.generic.edit import CreateView, BaseFormView
 
-class ApplicationView(CreateView):
-    template_name = "application/jobapplication_form.html"
-    model = JobApplication
-    form_class = JobApplicationForm
-    success_url = '/application/'
 
-class ApplicationCreateView(CreateView):
-    template_name = "application/job_application.html"
-    model = JobApplication
-    form_class = JobApplicationForm
 
-class AppCreateView(CreateView):
-    model = JobApplication
-    fields = ['first_name','father_name', 'grandfather_name', 'surname', 'birth_date', 'nationality', 'blood_type', 'father_birth_place', 'ID_type', 'ID_issued_from', 'ID_number', 'ID_issue_date', 'marital_status']
+class JobAppCreateView(CreateView):
+#    template_name="admin/change_list.html"
+    model = JobApp
+#    fields = ['first_name','father_name', 'grandfather_name', 'surname', 'birth_date', 'nationality', 'blood_type', 'father_birth_place', 'ID_type', 'ID_issued_from', 'ID_number', 'ID_issue_date', 'marital_status']
 #    form_class = ModelForm
+    fields = '__all__'
     success_url = '/createapp/'
-
-
-class ApplicationCView(CreateView):
-    template_name = "application/register.html"
-    model = JobApplication
-    form_class = JobApplicationForm
 
 
 class ApplySuccessView(TemplateView):
     template_name = "application/success.html"
-
-
 
 
 class ApplyCreateView(CreateView):
@@ -55,6 +41,7 @@ class CloseContactInline(admin.StackedInline):
               ('close_contacts_job', 'close_contacts_work_address'),)
     verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة"
     verbose_name = "أسماء مقربين للتواصل بهم عند الحاجة"
+
 
 class JobDetailsInline(admin.StackedInline):
     model = JobDetails
@@ -150,6 +137,7 @@ class InqueriesInline(admin.StackedInline):
 
 class JobAppAdmin(admin.ModelAdmin):
     model=JobApp
+
     verbose_name_plural = "استمارة طلب توظيف"
     verbose_name ="استمارة طلب توظيف"
     fields = (('first_name', 'father_name'),
@@ -163,10 +151,27 @@ class JobAppAdmin(admin.ModelAdmin):
               'Hobbies',
               ('residence_place', 'residence_city'),
               ('residence_district', 'residence_street'),
-              ('home_phone', 'whatsapp', 'telegram'), )
-
+              ('home_phone', 'whatsapp', 'telegram'),
+              )
 
 
     inlines = [
         CloseContactInline,JobDetailsInline,QualificationInline,LangInline,LangExamInline,ComputerKnowledgeInline,CoursesInline,DrivingLicenseInline,SkillInline,ExperienceInline, AcchievemntsInline, InqueriesInline
     ]
+
+    def response_add(self, request, obj, post_url_continue=None):
+        return redirect('/apply/logout')
+
+
+
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        User = get_user_model()
+        tuser = User.objects.get(username=request.user)
+        tuser.is_staff=False
+        print("otype",type(tuser))
+        print("is",obj.user.is_staff)
+        super().save_model(request, obj, form, change)
+        tuser.save()
+        print('user group changed')

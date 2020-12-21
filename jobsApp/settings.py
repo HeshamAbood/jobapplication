@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
 
 ]
-
+#AUTH_USER_MODEL = 'django.contrib.auth.User'
 ROOT_URLCONF = 'jobsApp.urls'
 
 TEMPLATES = [

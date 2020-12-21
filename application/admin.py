@@ -3,8 +3,7 @@ from .models import *
 # Register your models here.
 from .views import JobAppAdmin
 
-admin.site.register(JobApplication)
-admin.site.register(Person)
+
 admin.site.register(CloseContact)
 admin.site.register(JobDetails)
 admin.site.register(Qualification)
