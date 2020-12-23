@@ -16,7 +16,16 @@
 
 {% endif %}
 
-{% block content %}<div id="content-main">
+{% block content %}
+
+<div id="content-main">
+
+<ul class="messages" >
+    <h2 class="helptext" style="color:red"> تعليمات هامة</h2>
+    <li class="helptext" >يجب تعبئة كافة البيانات وفي حالة عدم وجود بعض البيانات، يتم كتابة لا يوجد</li>
+    <li class="helptext">يجب أن تكون البيانات صحيحة وبموجب وثائق إثباتها</li>
+</ul>
+
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
   <ul class="object-tools">
@@ -58,7 +67,15 @@
 
 {% block after_related_objects %}{% endblock %}
 
-{% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+{% block submit_buttons_bottom %}
+     <p class="errornote">
+    أقر أنا الموقع أدناه أقر بأن جميع البيانات والمعلومات المذكورة بهذا الطلب حسب معرفتي واعتقادي صحيحة من جميع الجوانب، وإنها
+متطابقة تماماً مع معلوماتي الشخصية ومؤهلاتي وخبراتي وقدراتي، وأن أي معلومة غير صحيحة في هذا الطلب تكون سبباً كافياً لإلغاء
+طلبي أو إنهاء خدمتي مع احتفاظ الجهة التي سوف تقوم بتوظيفي بكافة حقوقها القانونية، كما أفوض الجهة التي سوف تقوم
+بتوظيفي أو من تفوضه بالاستفسار عني والتأكد من صحة المعلومات والبيانات أو طلب أي معلومات إضافية عني، وكما أقر بكافة
+الشروط والسياسات والإجراءات المتبعة لدى الجهة التي سوف تقوم بتوظيفي أو لدى وكالتها الاستشارية.
+    </p>
+    {% submit_row %}{% endblock %}
 
 {% block admin_change_form_document_ready %}
     <script type="text/javascript"

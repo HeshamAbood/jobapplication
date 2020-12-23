@@ -39,7 +39,7 @@ class CloseContactInline(admin.StackedInline):
               ('close_contacts_residence_place', 'close_contacts_relation'),
               ('close_contacts_phone', 'close_contacts_other_phone'),
               ('close_contacts_job', 'close_contacts_work_address'),)
-    verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة"
+    verbose_name_plural = "أسماء مقربين للتواصل بهم عند الحاجة يجب ذكر شخصين على الأقل"
     verbose_name = "أسماء مقربين للتواصل بهم عند الحاجة"
 
 
@@ -56,7 +56,9 @@ class JobDetailsInline(admin.StackedInline):
 
 class QualificationInline(admin.StackedInline):
     model = Qualification
-    fields = (('clfy_name', 'clfy_from_date', 'clfy_to_date', 'clfy_place', 'clfy_country'),
+    form = QualificationForm
+    fields = (('clfy_name', 'clfy_from_date', 'clfy_to_date'),
+              ( 'clfy_place', 'clfy_country'),
               ('clfy_type', 'clfy_graduate_date','clfy_ranking',))
     extra = 1
     verbose_name_plural = "المعلومات الخاصة بالمؤهلات العلمية"
@@ -66,7 +68,7 @@ class QualificationInline(admin.StackedInline):
 class LangInline(admin.TabularInline):
     model = Lang
     fields = ('lang_type','conv_level','writing_level','reading_level',)
-    extra = 2
+    extra = 1
     verbose_name_plural = "اللغات التي تجيدها"
     verbose_name = "اللغة التي تجيدها"
 
@@ -75,10 +77,13 @@ class LangExamInline(admin.TabularInline):
     fields = ('lang_ex_type','lang_score',)
     verbose_name_plural = "لامتحان اللغة"
     verbose_name = "لامتحان اللغة"
+    extra = 1
 
 
 class ComputerKnowledgeInline(admin.StackedInline):
     model = ComputerKnowledge
+    fields = (('computer_knowledge', 'computer_knowledge_details'),
+              ('internet_knowledge','internet_knowledge_details'))
     extra = 1
     max_num = 1
     verbose_name_plural = "استخدام الحاسب الآلي والانترنت"
@@ -86,16 +91,21 @@ class ComputerKnowledgeInline(admin.StackedInline):
 
 class CoursesInline(admin.StackedInline):
     model = Courses
-    fields = (('courses_Name', 'start_date', 'end_date', 'palce', 'country'),
-    ('cert_type', 'interval', 'score', 'specialization', ))
+    form = CoursesForm
+    fields = (('courses_Name'),
+               ('start_date', 'end_date'),
+              ('palce', 'country'),
+                ('cert_type', 'interval', 'score', 'specialization', ))
     verbose_name_plural = "الدورات التدريبة"
     verbose_name = "الدورات التدريبة"
     extra = 1
 
-class DrivingLicenseInline(admin.TabularInline):
+class DrivingLicenseInline(admin.StackedInline):
     model = DrivingLicense
     extra = 1
     max_num = 1
+    fields = (('driving_license'),
+              ('driving_license_active'),)
     verbose_name_plural = "معلومات رخصة القيادة"
     verbose_name = "معلومات رخصة القيادة"
 
@@ -103,11 +113,12 @@ class SkillInline(admin.TabularInline):
     model = Skill
     extra = 1
     max_num = 1
-    verbose_name_plural = "معلومات رخصة القيادة"
-    verbose_name = "معلومات رخصة القيادة"
+    verbose_name_plural = "المهارات والقدرات"
+    verbose_name = "المهارات والقدرات"
 
 class ExperienceInline(admin.StackedInline):
     model = Experience
+    form = ExperienceForm
     fields = ('place',
                  ('position1_name', 'position1_from_date', 'position1_to_date'),
                  ('position2_name', 'position2_from_date', 'position2_to_date'),
@@ -129,28 +140,39 @@ class AcchievemntsInline(admin.TabularInline):
 
 class InqueriesInline(admin.StackedInline):
     model = Inqueries
+    fields = (
+        ('inq_loan'),
+        ('inq_training','inq_training_detail'),
+        ('inq_long_term_disease','inq_long_term_disease_detail'),
+        ('inq_surgery'),
+        ('inq_cust_contact'),
+        ('inq_favor_w_place', 'inq_accept_w_place'),
+        ('inq_explain'),
+    )
     extra = 1
     max_num = 1
     verbose_name_plural = "استفسارات عامة"
     verbose_name = "استفسارات عامة"
 
 
+
 class JobAppAdmin(admin.ModelAdmin):
     model=JobApp
-
+    form =JobAppAdminForm
     verbose_name_plural = "استمارة طلب توظيف"
     verbose_name ="استمارة طلب توظيف"
     fields = (('first_name', 'father_name'),
               ('grandfather_name', 'surname'),
-              ('birth_date', 'nationality'),
+              ('birth_date','birth_place', 'nationality'),
               ('blood_type', 'father_birth_place'),
               ('ID_type', 'ID_number'),
               ('ID_issued_from', 'ID_issue_date'),
+              ('marital_status','childs_number'),
               ('mobile', 'mobile_other'),
               ('email', 'email_other'),
               'Hobbies',
-              ('residence_place', 'residence_city'),
-              ('residence_district', 'residence_street'),
+              ('residence_place', ),
+              ('residence_city','residence_district', 'residence_street'),
               ('home_phone', 'whatsapp', 'telegram'),
               )
 

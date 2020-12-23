@@ -419,7 +419,7 @@
             DateTimeShortcuts.calendarInputs[num].focus();
             DateTimeShortcuts.dismissCalendar(num);
         }
-    };
+    };calendarlink1
 
     window.addEventListener('load', DateTimeShortcuts.init);
     window.DateTimeShortcuts = DateTimeShortcuts;

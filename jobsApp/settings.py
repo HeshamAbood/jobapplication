@@ -169,3 +169,7 @@ LOGGING = {
         },
     },
 }
+
+DATE_INPUT_FORMATS=[
+    '%Y-%m-%d',          # '25 October 2006', '25 October, 2006'
+]

@@ -5,22 +5,24 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, FileExtensionValidator
 from django.db import models
+from django.forms import DateInput
+
 from .validators import validate_file_extension
 from jobsApp import settings
 from django.contrib.auth import get_user_model
 
 class JobApp(models.Model):
     nationalities = (('Y', 'يمني'), ('O', 'أخرى'))
-    blood_groups = (('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'),)
+    blood_groups = (('A1', 'A+'),('A2', 'A-'), ('B1', 'B+'), ('B2', 'B-'), ('AB1', 'AB+'), ('AB2', 'AB-'), ('O1', 'O+'),('O2', 'O-'),)
     id_types = (('ID', 'بطاقة'), ('PS', 'جوازسفر'), ('O', 'أخرى'))
     marital_options = (('S', 'عازب'), ('M', 'متزوج'), ('O', 'أخرى'))
-    city_options = (
-    (1, 'عمران'), (2, 'محافظة'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
+    city_options = ((23,'الأمانة'),
+    (1, 'عمران'), (2, 'محافظة صنعاء'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
     (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
     (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
     (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
-
+    YEAR_CHOICES = tuple([(str(x),str(x)) for x in range(1950,2020)])
 
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -30,7 +32,8 @@ class JobApp(models.Model):
     father_name = models.CharField(max_length=200, verbose_name=u"اسم الأب")
     grandfather_name = models.CharField(max_length=200, verbose_name=u"اسم الجد")
     surname = models.CharField(max_length=200, verbose_name=u"اللقب:")
-    birth_date = models.DateField(default=date.today , verbose_name=u"تاريخ الميلاد ")
+    birth_date = models.DateField(default=date.today, verbose_name=u"تاريخ الميلاد ", )
+    birth_place=models.CharField(max_length=200, verbose_name=u"مكان الميلاد")
 
     nationality = models.CharField(max_length=200, choices=nationalities, verbose_name=u"الجنسية")
     blood_type = models.CharField(max_length=200, choices=blood_groups, verbose_name=u"فصيلة الدم", null=True, blank=True, )
@@ -38,8 +41,10 @@ class JobApp(models.Model):
     ID_type = models.CharField(max_length=200, choices=id_types, verbose_name=u"نوع الهوية", )
     ID_issued_from = models.CharField(max_length=200, verbose_name=u"صادرة من" )
     ID_number = models.CharField(max_length=200, verbose_name=u"برقم" )
-    ID_issue_date = models.DateField(default=date.today, verbose_name=u"وبتاريخ" )
+    ID_issue_date = models.DateField(default=date.today, verbose_name=u"وبتاريخ" ,)
 #    ID_photo = models.ImageField(upload_to=user_directory_path,validators=[validate_file_extension], default="", verbose_name=u"صورة شخصية" )
+    marital_status=models.CharField(max_length=200, verbose_name=u"الحالة الإجتماعية" ,choices=marital_options)
+    childs_number=models.CharField(max_length=200, verbose_name=u"عدد الأولاد",default="", null=True, blank=True,  )
 
     mobile = models.CharField(max_length=200, verbose_name=u"رقم هاتفك المحمول" )
     mobile_other = models.CharField(max_length=200, verbose_name=u"رقم أخر", default="", null=True, blank=True, )
@@ -49,10 +54,10 @@ class JobApp(models.Model):
 
     Hobbies = models.TextField(max_length=2000, default="", verbose_name=u"الهوايات", null=True, blank=True, )
 
-    residence_place = models.CharField(max_length=200, verbose_name=u"عنوان السكن الدائم", default="", )
+    residence_place = models.CharField(max_length=100, verbose_name=u"عنوان السكن الدائم",null=True, db_column=False)
     residence_city = models.IntegerField( choices=city_options, verbose_name=u"المحافظة",  )
-    residence_district = models.CharField(max_length=200, default="", verbose_name=u"المديرية", )
-    residence_street = models.CharField(max_length=200, default="", verbose_name=u"الحي", )
+    residence_district = models.CharField(max_length=200, default="", verbose_name=u"بجوار أو بالقرب ", )
+    residence_street = models.CharField(max_length=200, default="", verbose_name=u"الحي أو الشارع", )
 
     home_phone = models.CharField(max_length=200, default="", verbose_name=u"رقم هاتف المنزل", null=True, blank=True, )
     whatsapp = models.CharField(max_length=200, default="", verbose_name=u"حساب واتساب", null=True, blank=True, )
@@ -116,7 +121,7 @@ class Qualification(models.Model):
 
 
 class Lang(models.Model):
-    type_options=(('ar','العربية'),('en','الإنجليزية'),('o','اخرى'))
+    type_options=(('en','الإنجليزية'),('ar','العربية'),('o','اخرى'))
     target_level=(('e','ممتاز'),('vg','جيد جد ا'),('g','جيد'),('ac','متوسط'),(('w','ضعيف')))
     lang_type = models.CharField(max_length=200, default="",verbose_name=u"اللغة", choices=type_options, )
     conv_level=models.CharField(max_length=200, default="",verbose_name=u"محادثة", choices=target_level, )
@@ -135,7 +140,10 @@ class LangExam(models.Model):
 class ComputerKnowledge(models.Model):
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
     computer_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام الحاسب الآلي", default="", null=True, blank=True, choices=yn_choices , )
+    computer_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"نرجو تحديد أسماء البرامج", null=True, blank=True, )
     internet_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام البريد الإلكتروني", default="", null=True, blank=True, choices=yn_choices  )
+    internet_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"نرجو تحديد أنواع البريد", null=True, blank=True, )
+
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Courses(models.Model):
@@ -144,7 +152,7 @@ class Courses(models.Model):
     end_date = models.DateField(default=date.today,verbose_name=u"الفترة إلى", null=True, blank=True, )
     palce = models.CharField(max_length=200, default="",verbose_name=u"الجهة المنفذة للدورة", null=True, blank=True, )
     country = models.CharField(max_length=200, default="",verbose_name=u"الدولة", null=True, blank=True, )
-    cert_type = models.CharField(max_length=200, default="",verbose_name=u"نوع الشهادة", null=True, blank=True, )
+    cert_type = models.CharField(max_length=200, default="",verbose_name=u"التخصص", null=True, blank=True, )
     interval = models.CharField(max_length=200, default="",verbose_name=u"عدد الساعات", null=True, blank=True, )
     score = models.CharField(max_length=200, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
     specialization = models.CharField(max_length=200,verbose_name=u"التخصص", default="", null=True, blank=True, )
@@ -153,9 +161,9 @@ class Courses(models.Model):
 
 class DrivingLicense(models.Model):
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
-    driving_license = models.CharField(max_length=200,verbose_name=u"هل تستطيع قيادة السيارات وسائل النقل", default="", null=True, choices=yn_choices )
-    driving_license_active = models.CharField(max_length=20,verbose_name=u"هل لديك رخصة قيادة سارية المفعول", default="", choices=yn_choices)
-    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" , )
+    driving_license = models.CharField(max_length=200,verbose_name=u"هل تستطيع قيادة السيارات وسائل النقل",blank=True, default="", null=True, choices=yn_choices, )
+    driving_license_active = models.CharField(max_length=20,verbose_name=u"هل لديك رخصة قيادة سارية المفعول",blank=True, default="",null=True, choices=yn_choices)
+    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Skill(models.Model):
     skill = models.TextField(max_length=500, default="",verbose_name=u"الرجاء تحديد أي مهارات/قدرات خاصة بك", null=True, blank=True, )
@@ -195,18 +203,22 @@ class Acchievemnts(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
 
 class Inqueries(models.Model):
-    city_options = ( (1,'عمران'),(2,'محافظة'),(3,'الحديدة'),(4,'الجوف'),(5,'المحويت'),(6,'أمانة'),(7,'ذمار'),(8,'حجة'),(9,'إب'),(10,'مأرب'),(11,'محافظة'),(12,'صعدة'),
-                     (13,'صنعاء'),(14,'تعز'),(15,'عدن'),(16,'أبين'),(17,'محافظة'),(18,'المهرة'),(19,'حضرموت'),(20,'أرخبيل'),(21,'لحج'),(22,'شبوة'))
+    city_options = ((23,'الأمانة'),
+    (1, 'عمران'), (2, 'محافظة صنعاء'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
+    (9, 'إب'), (10, 'مأرب'), (11, 'محافظة'), (12, 'صعدة'),
+    (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
+    (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
 
-    inq_loan=models.CharField(max_length=20, default="",verbose_name=u"هل عليك قروض أو ديون أو مشاكل مادية", choices=yn_choices)
-    inq_training=models.CharField(max_length=20, default="",verbose_name=u"هل ترغب في الحصول على دورات تدريبية في مجال عملك", choices=(('Y', 'Yes'), ('N', 'No'), ('D', 'Not Now')))
+    inq_loan=models.CharField(max_length=20,blank=True, default="",verbose_name=u"هل عليك قروض أو ديون أو مشاكل مادية", choices=yn_choices)
+    inq_training=models.CharField(max_length=20,blank=True, default="",verbose_name=u"هل ترغب في الحصول على دورات تدريبية في مجال عملك", choices=yn_choices)
     inq_training_detail=models.CharField(max_length=200,default="",verbose_name=u"في حالة الإجابة ب )نعم( نرجو تحديد هذه الدورات",null=True, blank=True, )
-    inq_long_term_disease=models.CharField(max_length=200,default="",verbose_name=u"هل تعاني من أي مشاكل صحية أو نفسية أو أمراض مزمنة",null=True, blank=True, )
+    inq_long_term_disease=models.CharField(max_length=200,default="",verbose_name=u"هل تعاني من أي مشاكل صحية أو نفسية أو أمراض مزمنة",null=True, blank=True ,choices=yn_choices )
+    inq_long_term_disease_detail=models.CharField(max_length=200,default="",verbose_name=u"في حالة الإجابة ب )نعم( نرجو ذكرها",null=True, blank=True, )
     inq_surgery=models.CharField(max_length=200,default="",null=True,verbose_name=u"هل سبق ان أجريت لك أي عملية جراحية", blank=True, )
-    inq_cust_contact=models.CharField(max_length=20,default="",verbose_name=u"هل سبق وكانت طبيعة عملك تتطلب التعامل مع العملاء؟",choices=(('Y', 'Yes'), ('N', 'No'), ('S', 'Sometimes')) )
-    inq_favor_w_place=models.IntegerField(default="0",verbose_name=u"ماهي المحافظة التي تفضل العمل فيها، بحكم تواجد السكن الأصلي لك؟" , choices=city_options )
-    inq_accept_w_place=models.CharField(max_length=200,default="",verbose_name=u"وهل تقبل العمل في محافظة إذا طلب منك ذلك", choices=yn_choices )
-    inq_explain=models.CharField(max_length=200,default="",verbose_name=u"لماذا ترغب في العمل لدى البنك المركزي اليمني؟")
+    inq_cust_contact=models.CharField(max_length=20,blank=True,default="",verbose_name=u"هل سبق وكانت طبيعة عملك تتطلب التعامل مع العملاء؟",choices=yn_choices )
+    inq_favor_w_place=models.IntegerField(default="0",blank=True,verbose_name=u"ماهي المحافظة التي تفضل العمل فيها، بحكم تواجد السكن الأصلي لك؟" , choices=city_options )
+    inq_accept_w_place=models.CharField(max_length=200,blank=True,default="",verbose_name=u"وهل تقبل العمل في محافظة إذا طلب منك ذلك", choices=yn_choices )
+    inq_explain=models.TextField(max_length=200,default="",verbose_name=u"لماذا ترغب في العمل لدى البنك المركزي اليمني؟")
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
