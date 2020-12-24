@@ -33,12 +33,16 @@ SECRET_KEY = 'u18v_pogyo(5t+kron02-4_j6=#x7w%q+kbo=ksctuhg(*db1z'
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-
-ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0']
+ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0','nedrissi1l']
+#ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'static',
+    'templates',
+    'media',
+    'locale',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
