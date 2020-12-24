@@ -822,10 +822,10 @@ table#change-history tbody th {
 
 #header {
     width: auto;
-    height: 60px;
+    height: 80px;
     padding: 5px 40px;
     background: #417690;
-    line-height: 60px;
+    line-height: 80px;
     color: #ffc;
     overflow: hidden;
 }
