@@ -15,6 +15,8 @@ class JobAppAdminForm(ModelForm):
             'birth_date': forms.DateInput(format=('%d-%m-%Y'),
                                              attrs={'type': 'date',
                                                     'placeholder': 'Select a date'}),
+            'residence_place': forms.HiddenInput(attrs={'type':'text',
+                                                        'pleaceholder':'resident place'}),
         }
 
 class QualificationForm(ModelForm):

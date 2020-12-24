@@ -48,7 +48,8 @@ class JobDetailsInline(admin.StackedInline):
     fields = (('job_fit_name', 'job_know_channel'),
               ('job_salary_exp', 'job_favorite_hours'),
               ('job_non_announcement', 'job_least_income'),
-              ('job_in_bank_relat', 'job_out_bank_relat'),)
+              ('job_in_bank_relat', 'job_in_bank_relat_desc'),
+              ('job_out_bank_relat', 'job_out_bank_relat_desc'),)
     extra = 1
     max_num = 1
     verbose_name_plural = "معلومات الوظيفة التي تم التقدم لها"
@@ -68,17 +69,23 @@ class QualificationInline(admin.StackedInline):
 class LangInline(admin.TabularInline):
     model = Lang
     fields = ('lang_type','conv_level','writing_level','reading_level',)
-    extra = 1
+    extra = 2
     verbose_name_plural = "اللغات التي تجيدها"
     verbose_name = "اللغة التي تجيدها"
 
-class LangExamInline(admin.TabularInline):
-    model = LangExam
-    fields = ('lang_ex_type','lang_score',)
-    verbose_name_plural = "لامتحان اللغة"
-    verbose_name = "لامتحان اللغة"
+class ExamInline(admin.TabularInline):
+    model = Exam
+    fields = ('ex_type','ex_score',)
+    verbose_name_plural =  "هل سبق وتقدمت لامتحان اللغة"
+    verbose_name = "هل سبق وتقدمت لامتحان اللغة"
     extra = 1
 
+class RelatedLangInline(admin.TabularInline):
+    model = RelatedLang
+    fields = ('x','y',)
+    verbose_name_plural = "إختبار اللغة"
+    verbose_name = "إختبار اللغة"
+    extra = 2
 
 class ComputerKnowledgeInline(admin.StackedInline):
     model = ComputerKnowledge
@@ -95,7 +102,7 @@ class CoursesInline(admin.StackedInline):
     fields = (('courses_Name'),
                ('start_date', 'end_date'),
               ('palce', 'country'),
-                ('cert_type', 'interval', 'score', 'specialization', ))
+                ('cert_type', 'interval', 'score', ))
     verbose_name_plural = "الدورات التدريبة"
     verbose_name = "الدورات التدريبة"
     extra = 1
@@ -144,7 +151,7 @@ class InqueriesInline(admin.StackedInline):
         ('inq_loan'),
         ('inq_training','inq_training_detail'),
         ('inq_long_term_disease','inq_long_term_disease_detail'),
-        ('inq_surgery'),
+        ('inq_surgery','inq_surgery_detail'),
         ('inq_cust_contact'),
         ('inq_favor_w_place', 'inq_accept_w_place'),
         ('inq_explain'),
@@ -172,13 +179,13 @@ class JobAppAdmin(admin.ModelAdmin):
               ('email', 'email_other'),
               'Hobbies',
               ('residence_place', ),
-              ('residence_city','residence_district', 'residence_street'),
+              ('residence_city', 'residence_street', 'residence_district'),
               ('home_phone', 'whatsapp', 'telegram'),
               )
 
 
     inlines = [
-        CloseContactInline,JobDetailsInline,QualificationInline,LangInline,LangExamInline,ComputerKnowledgeInline,CoursesInline,DrivingLicenseInline,SkillInline,ExperienceInline, AcchievemntsInline, InqueriesInline
+        CloseContactInline,JobDetailsInline,QualificationInline,LangInline,ExamInline,ComputerKnowledgeInline,CoursesInline,DrivingLicenseInline,SkillInline,ExperienceInline, AcchievemntsInline, InqueriesInline
     ]
 
     def response_add(self, request, obj, post_url_continue=None):

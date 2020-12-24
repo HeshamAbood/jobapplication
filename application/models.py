@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 class JobApp(models.Model):
     nationalities = (('Y', 'يمني'), ('O', 'أخرى'))
     blood_groups = (('A1', 'A+'),('A2', 'A-'), ('B1', 'B+'), ('B2', 'B-'), ('AB1', 'AB+'), ('AB2', 'AB-'), ('O1', 'O+'),('O2', 'O-'),)
-    id_types = (('ID', 'بطاقة'), ('PS', 'جوازسفر'), ('O', 'أخرى'))
+    id_types = (('ID', 'بطاقة شخصية'), ('PS', 'جوازسفر'), ('O', 'أخرى'))
     marital_options = (('S', 'عازب'), ('M', 'متزوج'), ('O', 'أخرى'))
     city_options = ((23,'الأمانة'),
     (1, 'عمران'), (2, 'محافظة صنعاء'), (3, 'الحديدة'), (4, 'الجوف'), (5, 'المحويت'), (6, 'أمانة'), (7, 'ذمار'), (8, 'حجة'),
@@ -54,7 +54,7 @@ class JobApp(models.Model):
 
     Hobbies = models.TextField(max_length=2000, default="", verbose_name=u"الهوايات", null=True, blank=True, )
 
-    residence_place = models.CharField(max_length=100, verbose_name=u"عنوان السكن الدائم",null=True, db_column=False)
+    residence_place = models.CharField(max_length=100, verbose_name=u"عنوان السكن الدائم",blank=True,null=True, db_column=False)
     residence_city = models.IntegerField( choices=city_options, verbose_name=u"المحافظة",  )
     residence_district = models.CharField(max_length=200, default="", verbose_name=u"بجوار أو بالقرب ", )
     residence_street = models.CharField(max_length=200, default="", verbose_name=u"الحي أو الشارع", )
@@ -83,14 +83,18 @@ class CloseContact(models.Model):
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ", default="" )
 
 class JobDetails(models.Model):
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
+    rel_choices=(('B','بنوك'),('EX','شركات ومنشآت صرافة'),('O','أخرى'))
     job_fit_name = models.CharField(max_length=200,verbose_name=u"الوظيفة التي تقدمت لشغلها و التي تتناسب مع مؤهلك" ,default="", )
     job_know_channel = models.CharField(max_length=200,verbose_name=u"كيف علمت بهذه الوظيفة" ,default="", )
     job_salary_exp = models.CharField(max_length=100,verbose_name=u"الراتب والمزايا المتوقعة" ,default="", )
     job_favorite_hours = models.CharField(max_length=200,verbose_name=u"ساعات العمل التي تفضلها" ,default="", )
     job_non_announcement = models.CharField(max_length=200,verbose_name=u"حدد وضيفة أخرى معلن عنها وترغب بالتقدم لها وتعتقد أنك مؤهل لها عدا الوظيفة المتقدم لها" ,default="", null=True, blank=True, )
     job_least_income = models.CharField(max_length=200,verbose_name=u"ما هو أقل دخل شهري يمكنك العمل به شاملاً جميع البدلات" ,default="", )
-    job_in_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في البنك المركزي اليمني" ,default="", null=True, blank=True, )
-    job_out_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في الجهات ذات الصلة بالبنك", default="", null=True, blank=True, )
+    job_in_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في البنك المركزي اليمني" ,choices=yn_choices,default="", null=True, blank=True, )
+    job_in_bank_relat_desc = models.CharField(max_length=200,verbose_name=u"في حالة الإجابة بنعم – نرجو تحديد اسم وصلة الشخص" ,default="", null=True, blank=True, )
+    job_out_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في الجهات ذات الصلة بالبنك", choices=yn_choices,default="", null=True, blank=True, )
+    job_out_bank_relat_desc = models.CharField(max_length=200,verbose_name=u"في حالة الإجابة بنعم – نرجو تحديد اسم الجهة واسم وصلة الشخص", default="", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class Qualification(models.Model):
@@ -107,7 +111,7 @@ class Qualification(models.Model):
     clfy_to_date =  models.DateField(default=date.today,verbose_name=u"إلى",)
     clfy_place = models.CharField(max_length=80, default="",verbose_name=u"اسم المدرسة/الجامعة", null=True, blank=True,)
     clfy_country = models.CharField(max_length=80, default="",verbose_name=u"الدولة", null=True, blank=True, )
-    clfy_type = models.CharField(max_length=80, default="",verbose_name=u"نوع الشهادة", null=True, blank=True,)
+    clfy_type = models.CharField(max_length=80, default="",verbose_name=u"التخصص", null=True, blank=True,)
     clfy_graduate_date = models.DateField(default=date.today,verbose_name=u"سنة التخرج",)
     clfy_ranking = models.CharField(max_length=80, default="", verbose_name=u"التقدير العام", null=True, blank=True, )
 #    clfy_photo = models.FileField(upload_to=user_directory_path,validators=[validate_file_extension] , verbose_name=u"وثيقة المؤهل",default="")
@@ -124,25 +128,33 @@ class Lang(models.Model):
     type_options=(('en','الإنجليزية'),('ar','العربية'),('o','اخرى'))
     target_level=(('e','ممتاز'),('vg','جيد جد ا'),('g','جيد'),('ac','متوسط'),(('w','ضعيف')))
     lang_type = models.CharField(max_length=200, default="",verbose_name=u"اللغة", choices=type_options, )
-    conv_level=models.CharField(max_length=200, default="",verbose_name=u"محادثة", choices=target_level, )
-    writing_level=models.CharField(max_length=200, default="",verbose_name=u"كتابة", choices=target_level, )
-    reading_level=models.CharField(max_length=200, default="",verbose_name=u"قراءة", choices=target_level, )
+    conv_level=models.CharField(max_length=200, null=True, blank=True, default="",verbose_name=u"محادثة", choices=target_level, )
+    writing_level=models.CharField(max_length=200, null=True, blank=True, default="",verbose_name=u"كتابة", choices=target_level, )
+    reading_level=models.CharField(max_length=200, null=True, blank=True, default="",verbose_name=u"قراءة", choices=target_level, )
 
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
-class LangExam(models.Model):
-    type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'))
-    lang_ex_type= models.CharField(max_length=200, default="",verbose_name=u"هل سبق وتقدمت لامتحان اللغة",  null=True, choices=type_options, )
-    lang_score = models.CharField(max_length=200, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
+class RelatedLang(models.Model):
+    x= models.CharField(max_length=100, default="",verbose_name=u"نوع الإختبار",  null=True, blank=True)
+    y = models.CharField(max_length=100, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
 
-    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,verbose_name=u" ",default="" )
+    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
+
+class Exam(models.Model):
+    yn_choices = (('Y', 'نعم'), ('N', 'لا'))
+
+    type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'))
+    ex_type= models.CharField(max_length=100, default="",verbose_name=u"نوع الإختبار",  null=True, choices=type_options, )
+    ex_score = models.CharField(max_length=100, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
+
+    job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
 class ComputerKnowledge(models.Model):
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
     computer_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام الحاسب الآلي", default="", null=True, blank=True, choices=yn_choices , )
-    computer_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"نرجو تحديد أسماء البرامج", null=True, blank=True, )
+    computer_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"عند الإجابة بنعم نرجو تحديد أسماء البرامج", null=True, blank=True, )
     internet_knowledge = models.CharField(max_length=200,verbose_name=u"هل تستطيع استخدام البريد الإلكتروني", default="", null=True, blank=True, choices=yn_choices  )
-    internet_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"نرجو تحديد أنواع البريد", null=True, blank=True, )
+    internet_knowledge_details=models.CharField(max_length=200, default="",verbose_name=u"عند الإجابة بنعم نرجو تحديد أسماء البريد", null=True, blank=True, )
 
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
@@ -155,7 +167,6 @@ class Courses(models.Model):
     cert_type = models.CharField(max_length=200, default="",verbose_name=u"التخصص", null=True, blank=True, )
     interval = models.CharField(max_length=200, default="",verbose_name=u"عدد الساعات", null=True, blank=True, )
     score = models.CharField(max_length=200, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
-    specialization = models.CharField(max_length=200,verbose_name=u"التخصص", default="", null=True, blank=True, )
 
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 
@@ -209,13 +220,15 @@ class Inqueries(models.Model):
     (13, 'صنعاء'), (14, 'تعز'), (15, 'عدن'), (16, 'أبين'), (17, 'محافظة'), (18, 'المهرة'), (19, 'حضرموت'),
     (20, 'أرخبيل'), (21, 'لحج'), (22, 'شبوة'))
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
+    yn_choices_2 = (('Y', 'نعم'), ('N', 'لا'),('NN','ليس الان'))
 
     inq_loan=models.CharField(max_length=20,blank=True, default="",verbose_name=u"هل عليك قروض أو ديون أو مشاكل مادية", choices=yn_choices)
-    inq_training=models.CharField(max_length=20,blank=True, default="",verbose_name=u"هل ترغب في الحصول على دورات تدريبية في مجال عملك", choices=yn_choices)
-    inq_training_detail=models.CharField(max_length=200,default="",verbose_name=u"في حالة الإجابة ب )نعم( نرجو تحديد هذه الدورات",null=True, blank=True, )
+    inq_training=models.CharField(max_length=20,blank=True, default="",verbose_name=u"هل ترغب في الحصول على دورات تدريبية في مجال عملك", choices=yn_choices_2)
+    inq_training_detail=models.CharField(max_length=200,default="",verbose_name=u"عند الإجابة بنعم - نرجو تحديدها",null=True, blank=True, )
     inq_long_term_disease=models.CharField(max_length=200,default="",verbose_name=u"هل تعاني من أي مشاكل صحية أو نفسية أو أمراض مزمنة",null=True, blank=True ,choices=yn_choices )
     inq_long_term_disease_detail=models.CharField(max_length=200,default="",verbose_name=u"في حالة الإجابة ب )نعم( نرجو ذكرها",null=True, blank=True, )
-    inq_surgery=models.CharField(max_length=200,default="",null=True,verbose_name=u"هل سبق ان أجريت لك أي عملية جراحية", blank=True, )
+    inq_surgery=models.CharField(max_length=200,default="",null=True,verbose_name=u"هل سبق ان أجريت لك أي عملية جراحية", blank=True,choices=yn_choices  )
+    inq_surgery_detail=models.CharField(max_length=200,default="",verbose_name=u"عند الإجابة بنعم - نرجو تحديدها",null=True, blank=True ,)
     inq_cust_contact=models.CharField(max_length=20,blank=True,default="",verbose_name=u"هل سبق وكانت طبيعة عملك تتطلب التعامل مع العملاء؟",choices=yn_choices )
     inq_favor_w_place=models.IntegerField(default="0",blank=True,verbose_name=u"ماهي المحافظة التي تفضل العمل فيها، بحكم تواجد السكن الأصلي لك؟" , choices=city_options )
     inq_accept_w_place=models.CharField(max_length=200,blank=True,default="",verbose_name=u"وهل تقبل العمل في محافظة إذا طلب منك ذلك", choices=yn_choices )
