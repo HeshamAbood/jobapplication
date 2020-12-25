@@ -93,7 +93,7 @@ class JobDetails(models.Model):
     job_least_income = models.CharField(max_length=200,verbose_name=u"ما هو أقل دخل شهري يمكنك العمل به شاملاً جميع البدلات" ,default="", )
     job_in_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في البنك المركزي اليمني" ,choices=yn_choices,default="", null=True, blank=True, )
     job_in_bank_relat_desc = models.CharField(max_length=200,verbose_name=u"في حالة الإجابة بنعم – نرجو تحديد اسم وصلة الشخص" ,default="", null=True, blank=True, )
-    job_out_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في الجهات ذات الصلة بالبنك", choices=yn_choices,default="", null=True, blank=True, )
+    job_out_bank_relat = models.CharField(max_length=200,verbose_name=u"هل لديك أقارب في الجهات ذات الصلة بالبنك (مثلاً بنوك – شركات ومنشآت صرافة – أخرى)", choices=yn_choices,default="", null=True, blank=True, )
     job_out_bank_relat_desc = models.CharField(max_length=200,verbose_name=u"في حالة الإجابة بنعم – نرجو تحديد اسم الجهة واسم وصلة الشخص", default="", null=True, blank=True, )
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
 

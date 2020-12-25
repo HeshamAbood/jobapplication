@@ -30,11 +30,11 @@ MEDIA_URL = '/media/'
 SECRET_KEY = 'u18v_pogyo(5t+kron02-4_j6=#x7w%q+kbo=ksctuhg(*db1z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =True
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0','nedrissi1l']
-#ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0']
+#ALLOWED_HOSTS = ['127.0. 0.1']
+ALLOWED_HOSTS = ['*.herokuapp.com','localhost','127.0.0.1','jappapply.herokuapp.com','0.0.0.0']
 
 # Application definition
 
@@ -116,7 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
