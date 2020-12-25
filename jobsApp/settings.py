@@ -124,7 +124,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 LANGUAGE_CODE = 'en-us'
 
-LOCAL_PATHS = []
+LOCAL_PATHS = ['locale']
 
 LANGUAGES = [
 
