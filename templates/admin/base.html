@@ -19,18 +19,24 @@
 
     {% if not is_popup %}
     <!-- Header -->
-    <div id="header">
+    <div id="header" >
+        <div id="branding" style="width:30%">
+        <img src="{% static "admin/banner_l.jpg" %}" height="80px" />
 
-        <img src="{% static "admin/banner.jpg" %}" height="80px" />
+
+        </div>
+        <span id="head-subject" style="width:30%">
+        <img src="{% static "admin/banner.jpg" %}" height="80px" width="30%" />
+
+
+        </span>
         {% block usertools %}
+
         {% if has_permission %}
-        <div id="user-tools">
-             {% block welcome-msg %}
-                {% trans 'أعمال الدولية للإدارة والمشاريع ' %}
+        <div id="user-tools" style="width:25%">
 
-            {% endblock %}
-            {% block userlinks %}
-
+            {% block userlinks %}<span>
+            <img src="{% static "admin/banner_r.jpg" %}" height="80px" width="200px" /></span>
                 {% if user.has_usable_password %}
 
                 {% endif %}
@@ -39,6 +45,7 @@
         </div>
         {% endif %}
         {% endblock %}
+
         {% block nav-global %}{% endblock %}
     </div>
     <!-- END Header -->

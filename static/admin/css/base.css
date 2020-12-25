@@ -865,7 +865,18 @@ table#change-history tbody th {
 #branding a:hover {
     text-decoration: none;
 }
-
+#head-subject {
+    position: relative;
+    float: left;
+    padding: 10px;
+    margin: 0 200px 0 20px;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: center;
+    width:30%;
+}
 #user-tools {
     float: right;
     padding: 0;
