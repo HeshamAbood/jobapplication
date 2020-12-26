@@ -60,4 +60,4 @@ wrapt==1.12.1
 xmlschema==1.2.3
 whitenoise==5.2.0
 zeep==3.4.0
-
+psycopg2-binary==2.8.6

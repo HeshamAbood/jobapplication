@@ -198,9 +198,13 @@ class JobAppAdmin(admin.ModelAdmin):
         obj.user = request.user
         User = get_user_model()
         tuser = User.objects.get(username=request.user)
-        tuser.is_staff=False
-        print("otype",type(tuser))
-        print("is",obj.user.is_staff)
+#        obj.user.is_staff=False
+        tuser.is_staff = False
+        print("otype", type(obj.user))
+        print("ttype",type(tuser))
+        print("o is",obj.user.is_staff)
+        print("t is", tuser.is_staff)
         super().save_model(request, obj, form, change)
         tuser.save()
+#        obj.user.save()
         print('user group changed')

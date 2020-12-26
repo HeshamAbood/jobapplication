@@ -30,7 +30,7 @@ MEDIA_URL = '/media/'
 SECRET_KEY = 'u18v_pogyo(5t+kron02-4_j6=#x7w%q+kbo=ksctuhg(*db1z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG =True
 
 #ALLOWED_HOSTS = []
 #ALLOWED_HOSTS = ['127.0. 0.1']
@@ -92,8 +92,12 @@ AUTHENTICATION_BACKENDS = ["sesame.backends.ModelBackend"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'ddnqbv853qh34j',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        'USER': 'lbywmfyjeroasa',
+        'PORT':'5432',
+        'PASSWORD': '823243a54763ef295b3efc7051ca329df47816d56020e6fcc717d827d99a055c',
+        'HOST': 'ec2-35-168-77-215.compute-1.amazonaws.com',
     }
 }
 
