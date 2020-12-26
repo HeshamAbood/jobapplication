@@ -143,8 +143,8 @@ class RelatedLang(models.Model):
 class Exam(models.Model):
     yn_choices = (('Y', 'نعم'), ('N', 'لا'))
 
-    type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'))
-    ex_type= models.CharField(max_length=100, default="",verbose_name=u"نوع الإختبار",  null=True, choices=type_options, )
+    type_options = (('T', 'Toefel'), ('en', 'امتحان أخر باللغة الانجليزية'), ('o', 'امتحان أخر بلغة أخرى'),('NA',' لا يوجد') )
+    ex_type= models.CharField(max_length=100,blank=True, default="",verbose_name=u"نوع الإختبار",  null=True, choices=type_options, )
     ex_score = models.CharField(max_length=100, default="",verbose_name=u"التقدير العام", null=True, blank=True, )
 
     job = models.ForeignKey(JobApp, on_delete=models.CASCADE,default="" )
